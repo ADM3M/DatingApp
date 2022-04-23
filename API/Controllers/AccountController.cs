@@ -82,7 +82,7 @@ namespace API.Controllers
 
             if (user is null)
             {
-                return BadRequest("Incorrect username");
+                return BadRequest("Incorrect username or password");
             }
 
             var pwdData = GeneratePassword(dto.pwd, user.PasswordSalt);
@@ -91,7 +91,7 @@ namespace API.Controllers
             {
                 if (user.PasswordHash[i] != pwdData.pwdHash[i])
                 {
-                    return BadRequest("Incorrect password");
+                    return BadRequest("Incorrect username or password");
                 }
             }
 

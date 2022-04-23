@@ -13,7 +13,6 @@ export class AccountService {
   baseUrl = "https://localhost:5001/api/";
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
-  public username;
 
   constructor(private http: HttpClient) { }
 
@@ -23,7 +22,6 @@ export class AccountService {
         const user = response;
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
-          this.username = user.username;
           this.currentUserSource.next(user);
         }
       })
@@ -41,7 +39,6 @@ export class AccountService {
 
   setCurrentUser(user : User) {
     this.currentUserSource.next(user);
-    this.username = user.username;
   }
 
   logout() {
