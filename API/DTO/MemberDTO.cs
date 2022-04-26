@@ -31,6 +31,6 @@ namespace API.DTO
 
         public string City { get; set; }
 
-        public ICollection<PhotoDTO> Photo { get; set; }
+        public ICollection<PhotosDTO> Photos { get; set; }
     }
 }
