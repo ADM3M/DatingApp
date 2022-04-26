@@ -29,19 +29,6 @@ namespace API.Controllers
             return Ok(await _userRepository.GetUsersAsync());
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AppUser>> GetUser(int id)
-        {
-            var user =  await _userRepository.GetUserByIdAsync(id);
-            
-            if (user is null)
-            {
-                return BadRequest("User not found");
-            }
-
-            return user;
-        }
-
         [HttpGet("{name}")]
         public async Task<ActionResult<AppUser>> GetUser(string name)
         {
