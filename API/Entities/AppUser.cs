@@ -35,7 +35,7 @@ namespace API.Entities
 
         public string City { get; set; }
 
-        public ICollection<Photos> Photo { get; set; }
+        public ICollection<Photos> Photos { get; set; }
 
         public int GetAge()
         {
