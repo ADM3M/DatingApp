@@ -11,7 +11,7 @@
         "Interests": "Cillum dolore laboris cillum labore amet consequat proident ipsum pariatur.",
         "City": "Boykin",
         "Country": "Hong Kong",
-        "Photo": [
+        "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/women/15.jpg",
                 "IsMain": true
@@ -30,7 +30,7 @@
         "Interests": "Tempor fugiat anim labore nulla ullamco anim adipisicing adipisicing excepteur voluptate ut sit cupidatat sunt.",
         "City": "Brandywine",
         "Country": "Western Sahara",
-        "Photo": [
+        "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/women/78.jpg",
                 "IsMain": true
@@ -49,7 +49,7 @@
         "Interests": "Quis fugiat ea ea cillum est.",
         "City": "Blodgett",
         "Country": "Sierra Leone",
-        "Photo": [
+        "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/women/69.jpg",
                 "IsMain": true
@@ -68,7 +68,7 @@
         "Interests": "Anim magna qui id laboris eu Lorem labore deserunt amet aliquip.",
         "City": "Starks",
         "Country": "Cook Islands",
-        "Photo": [
+        "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/women/43.jpg",
                 "IsMain": true
@@ -87,7 +87,7 @@
         "Interests": "Anim nisi adipisicing cillum culpa laborum non nostrud qui.",
         "City": "Kilbourne",
         "Country": "Russian Federation",
-        "Photo": [
+        "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/women/77.jpg",
                 "IsMain": true
@@ -106,7 +106,7 @@
         "Interests": "Dolore cillum velit aliquip dolore excepteur pariatur est dolor in exercitation Lorem minim sit.",
         "City": "Lopezo",
         "Country": "Northern Mariana Islands",
-        "Photo": [
+        "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/man/86.jpg",
                 "IsMain": true
@@ -125,7 +125,7 @@
         "Interests": "Ea reprehenderit amet est esse dolor adipisicing ea ut exercitation voluptate esse.",
         "City": "Greenwich",
         "Country": "Niger",
-        "Photo": [
+        "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/man/77.jpg",
                 "IsMain": true
@@ -144,7 +144,7 @@
         "Interests": "Ipsum id deserunt laboris do sunt aliqua reprehenderit irure excepteur ad reprehenderit aliqua consectetur consectetur.",
         "City": "Shawmut",
         "Country": "Bouvet Island",
-        "Photo": [
+        "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/man/40.jpg",
                 "IsMain": true
@@ -163,7 +163,7 @@
         "Interests": "Culpa occaecat adipisicing et cupidatat minim Lorem.",
         "City": "Faywood",
         "Country": "Madagascar",
-        "Photo": [
+        "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/man/19.jpg",
                 "IsMain": true
@@ -182,7 +182,7 @@
         "Interests": "Deserunt id laborum amet enim quis consequat commodo fugiat in adipisicing pariatur occaecat fugiat velit.",
         "City": "Crenshaw",
         "Country": "Tunisia",
-        "Photo": [
+        "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/man/13.jpg",
                 "IsMain": true
