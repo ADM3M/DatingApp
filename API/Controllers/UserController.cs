@@ -29,7 +29,7 @@ namespace API.Controllers
             return Ok(await _userRepository.GetUsersAsync());
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {
             var user =  await _userRepository.GetUserByIdAsync(id);
