@@ -64,7 +64,7 @@ namespace API.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("API.Entities.Photo", b =>
+            modelBuilder.Entity("API.Entities.Photos", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,10 +86,10 @@ namespace API.Data.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Photo");
+                    b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("API.Entities.Photo", b =>
+            modelBuilder.Entity("API.Entities.Photos", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "AppUser")
                         .WithMany("Photo")
