@@ -1,1 +1,5 @@
-<p>member-list works!</p>
+<ng-container *ngIf="members">
+    <div *ngFor="let member of members" class="text-center">
+        {{member.id}} - {{member.name}}
+    </div>
+</ng-container>
