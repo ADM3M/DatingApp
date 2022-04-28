@@ -1,5 +1,7 @@
 <ng-container *ngIf="members">
-    <div *ngFor="let member of members" class="text-center">
-        {{member.id}} - {{member.name}}
+    <div class="row">
+        <div *ngFor="let member of members" class="col-2">
+            <app-member-card [member]="member"></app-member-card>
+        </div>
     </div>
 </ng-container>
