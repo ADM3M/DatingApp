@@ -1,6 +1,6 @@
 namespace API.Entities
 {
-    public class Photos
+    public class Photo
     {
         public int Id { get; set; }
 
