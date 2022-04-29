@@ -93,5 +93,33 @@ namespace API.Controllers
 
             return BadRequest("Problem adding photo");  
         }
+
+        [HttpPut("set-main-photo/{photoId}")]
+        public async Task<ActionResult> SetMainPhoto(int photoId)
+        {
+            var user = await _userRepository.GetUserByUserNameAsync(User.GetUserName());
+
+            var photo = user.Photos.FirstOrDefault(photo => photo.Id == photoId);
+
+            if (photo.IsMain)
+            {
+                return BadRequest("this is already your main photo");
+            }
+
+            var currentMain = user.Photos.FirstOrDefault(photo => photo.IsMain);
+            if (currentMain is not null)
+            {
+                currentMain.IsMain = false;
+            }
+
+            photo.IsMain = true;
+
+            if (await _userRepository.SaveAllAsync())
+            {
+                return NoContent();
+            }
+
+            return BadRequest("failed to set main photo");
+        }
     }
 }
