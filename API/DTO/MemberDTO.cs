@@ -33,6 +33,6 @@ namespace API.DTO
 
         public string Country { get; set; }
 
-        public ICollection<PhotosDTO> Photos { get; set; }
+        public ICollection<PhotoDTO> Photos { get; set; }
     }
 }
