@@ -8,6 +8,7 @@ using API.Data;
 using API.DTO;
 using API.Entities;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,9 +18,11 @@ namespace API.Controllers
     {
         private readonly DataContext context;
         private readonly ITokenService tokenService;
+        private readonly IMapper _mapper;
 
-        public AccountController(DataContext context, ITokenService tokenService)
+        public AccountController(DataContext context, ITokenService tokenService, IMapper mapper)
         {
+            _mapper = mapper;
             this.context = context;
             this.tokenService = tokenService;
         }
@@ -45,28 +48,30 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register([FromBody] RegisterDTO registerDto)
         {
-            if (await UserExists(registerDto.username))
+            if (await UserExists(registerDto.Name))
             {
-                return BadRequest("Username is taken");
+                return BadRequest("Name is taken");
             }
+
+            var user = _mapper.Map<AppUser>(registerDto);
 
             var pwdData = GeneratePassword(registerDto.pwd);
 
-            AppUser user = new()
-            {
-                Name = registerDto.username,
-                PasswordHash = pwdData.pwdHash,
-                PasswordSalt = pwdData.salt
-            };
+            user.Name = registerDto.Name;
+            user.PasswordHash = pwdData.pwdHash;
+            user.PasswordSalt = pwdData.salt;
 
             context.Users.Add(user);
             await context.SaveChangesAsync();
 
-            return new UserDTO()
+            var result = new UserDTO()
             {
-                Username = user.Name,
-                Token = tokenService.GenereteToken(user)
+                Name = user.Name,
+                Token = tokenService.GenereteToken(user),
+                KnownAs = user.KnownAs,
             };
+            
+            return result;
         }
 
         private async Task<bool> UserExists(string username)
@@ -98,9 +103,10 @@ namespace API.Controllers
 
             return new UserDTO()
             {
-                Username = user.Name,
+                Name = user.Name,
                 Token = tokenService.GenereteToken(user),
                 PhotoUrl = user.Photos.FirstOrDefault(photo => photo.IsMain)?.Url,
+                KnownAs = user.KnownAs,
             };
         }
     }
