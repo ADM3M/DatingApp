@@ -73,4 +73,8 @@ export class PhotoEditorComponent implements OnInit {
       this.member.photos = this.member.photos.filter(p => p.id !== photoId);
     })
   }
+
+  isSingleQueueItem() {
+    return this.uploader?.queue.length == 1;
+  }
 }

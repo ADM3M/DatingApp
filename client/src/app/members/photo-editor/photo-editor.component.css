@@ -11,3 +11,7 @@ img.img-thumbnail{
 input[type=file] {
     color: transparent;
 }
+
+.btn-s {
+    margin-right: 4px;
+}
