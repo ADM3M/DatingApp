@@ -57,7 +57,6 @@ namespace API.Controllers
 
             var pwdData = GeneratePassword(registerDto.pwd);
 
-            user.Name = registerDto.Name;
             user.PasswordHash = pwdData.pwdHash;
             user.PasswordSalt = pwdData.salt;
 
@@ -84,14 +83,14 @@ namespace API.Controllers
         {
             var user = await context.Users
                 .Include(p => p.Photos)
-                .SingleOrDefaultAsync(x => x.Name == dto.username);
+                .SingleOrDefaultAsync(x => x.Name == dto.Name);
 
             if (user is null)
             {
                 return BadRequest("Incorrect username or password");
             }
 
-            var pwdData = GeneratePassword(dto.pwd, user.PasswordSalt);
+            var pwdData = GeneratePassword(dto.Pwd, user.PasswordSalt);
 
             for (int i = 0; i < user.PasswordHash.Length; i++)
             {
