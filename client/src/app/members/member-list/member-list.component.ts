@@ -13,7 +13,7 @@ export class MemberListComponent implements OnInit {
 
   members: IMember[];
   pagination: IPagination;
-  pagenumber = 1;
+  pageNumber = 1;
   pageSize = 5;
   
   constructor(private memberService: MemberService) { }
@@ -23,9 +23,14 @@ export class MemberListComponent implements OnInit {
   }
 
   loadMembers() {
-    this.memberService.getMembers(this.pagenumber, this.pageSize).subscribe(response => {
+    this.memberService.getMembers(this.pageNumber, this.pageSize).subscribe(response => {
       this.members = response.result;
       this.pagination = response.pagination;
     })
+  }
+
+  pageChanged(event: any) {
+    this.pageNumber = event.page;
+    this.loadMembers();
   }
 }
