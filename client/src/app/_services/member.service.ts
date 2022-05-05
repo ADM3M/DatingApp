@@ -1,9 +1,10 @@
-import { HttpClient, HttpHeaders, JsonpClientBackend } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IMember } from '../_models/IMember';
+import { PaginatedResult } from '../_models/Pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +12,28 @@ import { IMember } from '../_models/IMember';
 export class MemberService {
   baseUrl = environment.apiUrl;
   members: IMember[] = [];
+  paginatedResult: PaginatedResult<IMember[]> = new PaginatedResult<IMember[]>();
 
   constructor(private http: HttpClient) { }
 
-  getMembers() {
-    if (this.members.length > 0) {
-      return of(this.members);
-    }
+  getMembers(page?: number, itemsPerPage?: number) {
+    
+    let params = new HttpParams();
 
-    return this.http.get<IMember[]>(this.baseUrl + "users").pipe(
-      map(members => {
-        this.members = members;
-        return members;
+    if (page !== null && itemsPerPage !== null) {
+      params = params
+        .append('pageNumber', page.toString())
+        .append('pageSize', itemsPerPage.toString())
+    }
+    
+    return this.http.get<IMember[]>(this.baseUrl + "users", {observe: 'response', params}).pipe(
+      map(response => {
+        this.paginatedResult.result = response.body;
+        if (response.headers.get("pagination") !== null) {
+          this.paginatedResult.pagination = JSON.parse(response.headers.get("pagination"))
+        }
+
+        return this.paginatedResult;
       })
     );
   }
