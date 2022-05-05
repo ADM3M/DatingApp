@@ -19,8 +19,8 @@
     </ul>
 
     <div class="dropdown" dropdown *ngIf="(accountService.currentUser$ | async) as user">
-      <img src="{{user.photoUrl}}" alt="{{user.username}}" class="mr-2">
-      <a id="user_dropdown" dropdownToggle class="dropdown-toggle text-primary">{{user.username | titlecase}}</a>
+      <img src="{{user.photoUrl}}" alt="{{user.name}}" class="mr-2">
+      <a id="user_dropdown" dropdownToggle class="dropdown-toggle text-primary">{{user.name | titlecase}}</a>
       <div class="dropdown-menu" *dropdownMenu>
         <a routerLink="/member/edit" class="dropdown-item">Edit profile</a>
         <a class="dropdown-item" (click)="logout()">Logout</a>
@@ -29,9 +29,9 @@
 
     <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm" class="form-inline mt-2 mt-md-0"
       (ngSubmit)="login()" autocomplete="off">
-      <input name="username" [(ngModel)]="model.username" class="form-control mr-sm-2" type="text"
+      <input name="name" [(ngModel)]="model.name" class="form-control mr-sm-2" type="text"
         placeholder="Username">
-      <input name="password" [(ngModel)]="model.pwd" class="form-control mr-sm-2" type="password"
+      <input name="pwd" [(ngModel)]="model.pwd" class="form-control mr-sm-2" type="password"
         placeholder="Password">
       <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Login</button>
     </form>

@@ -1,5 +1,6 @@
 export interface IUser {
-    username : string;
+    name : string;
     token : string;
     photoUrl: string;
+    knownAs: string;
 }

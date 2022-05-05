@@ -7,8 +7,8 @@ namespace API.DTO
 {
     public class LoginDTO
     {
-        public string username { get; set; }
+        public string Name { get; set; }
 
-        public string pwd { get; set; }
+        public string Pwd { get; set; }
     }
 }
