@@ -15,8 +15,8 @@ namespace API.Helpers
 
         public int PageSize
         {
-            get => PageSize;
-            set => PageSize = (value > maxPageSize) ? maxPageSize : value;
+            get => _pageSize;
+            set => _pageSize = (value > maxPageSize) ? maxPageSize : value;
         }
     }
 }
