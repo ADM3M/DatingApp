@@ -22,7 +22,8 @@ export class MemberService {
     httpParams = httpParams
       .append("minAge", userParams.minAge.toString())
       .append("maxAge", userParams.maxAge.toString())
-      .append("gender", userParams.gender);
+      .append("gender", userParams.gender)
+      .append("orderBy", userParams.orderBy);
 
     return this.getPaginatedResult<IMember[]>(this.baseUrl + "users", httpParams);
   }
