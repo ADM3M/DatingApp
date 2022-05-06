@@ -9,7 +9,7 @@ namespace API.Helpers
     {
         private const int maxPageSize = 50;
 
-        public int PageNumber { get; set; } = 1;
+         public int PageNumber { get; set; } = 1;
 
         private int _pageSize = 10;
 
@@ -18,5 +18,13 @@ namespace API.Helpers
             get => _pageSize;
             set => _pageSize = (value > maxPageSize) ? maxPageSize : value;
         }
+
+        public string CurrentUserName { get; set; }
+
+        public string Gender { get; set; }
+
+        public int MinAge { get; set; } = 18;
+
+        public int MaxAge { get; set; } = 150;
     }
 }
