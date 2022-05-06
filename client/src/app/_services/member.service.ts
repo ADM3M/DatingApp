@@ -13,10 +13,17 @@ import { UserParams } from '../_models/userParams';
 export class MemberService {
   baseUrl = environment.apiUrl;
   members: IMember[] = [];
+  memberCache = new Map();
 
   constructor(private http: HttpClient) { }
 
   getMembers(userParams: UserParams) {
+
+    var response = this.memberCache.get(Object.values(userParams).join("-"));
+
+    if (response) {
+      return of(response);
+    }
 
     let httpParams = this.getPaginationHeader(userParams.pageNumber, userParams.pageSize);
     httpParams = httpParams
@@ -25,7 +32,10 @@ export class MemberService {
       .append("gender", userParams.gender)
       .append("orderBy", userParams.orderBy);
 
-    return this.getPaginatedResult<IMember[]>(this.baseUrl + "users", httpParams);
+    return this.getPaginatedResult<IMember[]>(this.baseUrl + "users", httpParams).pipe(map(response => {
+      this.memberCache.set(Object.values(userParams).join("-"), response);
+      return response;
+    }));
   }
 
   getMember(username: string) {
