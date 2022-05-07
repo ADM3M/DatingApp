@@ -39,9 +39,13 @@ export class MemberService {
   }
 
   getMember(username: string) {
-    const member = this.members.find(x => x.name === username)
+    let member = [...this.memberCache.values()]
+      .reduce((arr, elem) => arr.concat(elem.result), [])
+      .find((member: IMember) => member.name === username);
 
-    if (member !== undefined) {
+    console.log(member);
+
+    if (member) {
       return of(member);
     }
 
