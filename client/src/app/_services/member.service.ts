@@ -19,7 +19,7 @@ export class MemberService {
   userParams: UserParams;
   memberCache = new Map();
 
-  constructor(private http: HttpClient, private accountService: AccountService) { 
+  constructor(private http: HttpClient, private accountService: AccountService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
       this.user = user;
       this.userParams = new UserParams(user);
@@ -64,8 +64,6 @@ export class MemberService {
     let member = [...this.memberCache.values()]
       .reduce((arr, elem) => arr.concat(elem.result), [])
       .find((member: IMember) => member.name === username);
-
-    console.log(member);
 
     if (member) {
       return of(member);
