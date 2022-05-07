@@ -29,8 +29,6 @@ export class MemberDetailComponent implements OnInit {
         preview: true,
       }
     ];
-
-    // this.galleryImages = this.getDummyImages();
   }
 
   getImages(): NgxGalleryImage[] {
@@ -47,32 +45,10 @@ export class MemberDetailComponent implements OnInit {
     return imageUrls;
   }
 
-  getDummyImages(): NgxGalleryImage[] {
-    const imageUrl = [];
-    imageUrl.push({
-      small: './assets/user.png',
-      medium: './assets/user.png',
-      big: './assets/user.png'
-    });
-    imageUrl.push({
-      small: './assets/user.png',
-      medium: './assets/user.png',
-      big: './assets/user.png'
-    });
-    imageUrl.push({
-      small: './assets/user.png',
-      medium: './assets/user.png',
-      big: './assets/user.png'
-    });
-
-    return imageUrl;
-  }
-
   loadMember() {
     this.memberService.getMember(this.route.snapshot.paramMap.get("name")).subscribe(member => {
       this.member = member;
       this.galleryImages = this.getImages();
-      // this.galleryImages = this.getDummyImages();
     })
   }
 }
