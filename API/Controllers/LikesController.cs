@@ -36,9 +36,10 @@ namespace API.Controllers
 
             if (userLike is not null)
             {
-                sourceUser.LikedUsers.Remove(userLike);
-                return await _userRepository.SaveAllAsync() ? Ok("Like has been deleted")
-                : BadRequest("Error while deleting user like");
+                // sourceUser.LikedUsers.Remove(userLike);
+                // return await _userRepository.SaveAllAsync() ? Ok()
+                // : BadRequest("Error while deleting user like");
+                return BadRequest("User has already been liked");
             }
 
             userLike = new Entities.UserLike
@@ -49,7 +50,7 @@ namespace API.Controllers
 
             sourceUser.LikedUsers.Add(userLike);
 
-            if (await _userRepository.SaveAllAsync()) return Ok("User has been liked");
+            if (await _userRepository.SaveAllAsync()) return Ok();
 
             return BadRequest("Failed to like user");
         }
