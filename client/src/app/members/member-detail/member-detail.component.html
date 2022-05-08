@@ -48,7 +48,7 @@
                 <h5 *ngIf="member.photos.length == 0">User doesn't have any photo</h5>
             </tab>
             <tab heading="Messages">
-                <p>Messages will be here</p>
+                <app-member-messages [name]="member.name"></app-member-messages>
             </tab>
         </tabset>
     </div>
