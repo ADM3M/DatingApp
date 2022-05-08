@@ -1,1 +1,42 @@
-<p *ngFor="let message of messages">{{message?.content}}</p>
+<div class="card">
+    <div class="card-body">
+        <div *ngIf="messages?.length === 0">
+            No messages yet... Say hi using message hox hello
+        </div>
+
+        <ul *ngIf="messages?.length > 0" class="chat">
+            <li *ngFor="let message of messages">
+                <span class="chat-image float-left">
+                    <img src="{{message.senderPhotoUrl ?? './assets/user.png'}}" 
+                        alt="{{message.senderName}}" class="rounded-circle mr-3">
+                </span>
+                <div class="chat-body">
+                    <div class="header">
+                        <small class="text-muted">
+                            <span class="fa fa-clock-o"> {{message.messageSent | timeago}}</span>
+                            <span class="text-danger" *ngIf="!message.dateRead && message.senderName !== name">
+                                (unread)
+                            </span>
+                            <span class="text-info" *ngIf="message.dateRead && message.senderName !== name">
+                                (seen {{message.dateRead | timeago}})
+                            </span>
+                        </small>
+                    </div>
+
+                    <p>{{message.content}}</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card-footer">
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control input-sm" placeholder="Send a message">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
