@@ -71,7 +71,7 @@ namespace API.Controllers
         {
             var user = await _userManger.Users
                 .Include(p => p.Photos)
-                .SingleOrDefaultAsync(x => x.UserName == loginDto.Name.ToLower());
+                .SingleOrDefaultAsync(x => x.UserName.ToLower() == loginDto.Name.ToLower());
 
             if (user is null)
             {
