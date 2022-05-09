@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-roles-modal',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RolesModalComponent implements OnInit {
 
-  constructor() { }
+  title: string;
+  list: any[] = [];
+  closeBtnName: string;
+
+  constructor(public bsModalRef: BsModalRef) { }
 
   ngOnInit(): void {
   }
