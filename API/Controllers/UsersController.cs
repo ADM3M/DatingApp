@@ -39,7 +39,7 @@ namespace API.Controllers
         {
             var user = await _userRepository.GetUserByUserNameAsync(User.GetUserName());
             
-            userParams.CurrentUserName = user.Name;
+            userParams.CurrentUserName = user.UserName;
             
             if (string.IsNullOrEmpty(userParams.Gender))
             {
@@ -100,7 +100,7 @@ namespace API.Controllers
 
             if (await _userRepository.SaveAllAsync())
             {
-                return CreatedAtRoute("GetUser", new { name = user.Name }, _mapper.Map<PhotoDTO>(photo));
+                return CreatedAtRoute("GetUser", new { name = user.UserName }, _mapper.Map<PhotoDTO>(photo));
             }
 
             return BadRequest("Problem adding photo");

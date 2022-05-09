@@ -1,6 +1,6 @@
 [
     {
-        "Name": "Fay",
+        "UserName": "Fay",
         "Gender": "female",
         "DateOfBirth": "1958-10-05",
         "KnownAs": "Fay",
@@ -19,7 +19,7 @@
         ]
     },
     {
-        "Name": "Esther",
+        "UserName": "Esther",
         "Gender": "female",
         "DateOfBirth": "1996-08-26",
         "KnownAs": "Esther",
@@ -38,7 +38,7 @@
         ]
     },
     {
-        "Name": "Cindy",
+        "UserName": "Cindy",
         "Gender": "female",
         "DateOfBirth": "1999-08-02",
         "KnownAs": "Cindy",
@@ -57,7 +57,7 @@
         ]
     },
     {
-        "Name": "Shanna",
+        "UserName": "Shanna",
         "Gender": "female",
         "DateOfBirth": "1963-04-18",
         "KnownAs": "Shanna",
@@ -76,7 +76,7 @@
         ]
     },
     {
-        "Name": "Marcella",
+        "UserName": "Marcella",
         "Gender": "female",
         "DateOfBirth": "1979-01-30",
         "KnownAs": "Marcella",
@@ -95,7 +95,7 @@
         ]
     },
     {
-        "Name": "Wong",
+        "UserName": "Wong",
         "Gender": "male",
         "DateOfBirth": "1961-06-20",
         "KnownAs": "Wong",
@@ -114,7 +114,7 @@
         ]
       },
       {
-        "Name": "Barrett",
+        "UserName": "Barrett",
         "Gender": "male",
         "DateOfBirth": "1956-12-08",
         "KnownAs": "Barrett",
@@ -133,7 +133,7 @@
         ]
       },
       {
-        "Name": "Hodge",
+        "UserName": "Hodge",
         "Gender": "male",
         "DateOfBirth": "1979-04-02",
         "KnownAs": "Hodge",
@@ -152,7 +152,7 @@
         ]
       },
       {
-        "Name": "Mullen",
+        "UserName": "Mullen",
         "Gender": "male",
         "DateOfBirth": "1990-12-01",
         "KnownAs": "Mullen",
@@ -171,7 +171,7 @@
         ]
       },
       {
-        "Name": "Benson",
+        "UserName": "Benson",
         "Gender": "male",
         "DateOfBirth": "1990-07-05",
         "KnownAs": "Benson",

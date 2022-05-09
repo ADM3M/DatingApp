@@ -45,9 +45,9 @@ namespace API.Data
             
             query = messageParams.Container switch
             {
-                "Inbox" => query.Where(u => u.Recipient.Name == messageParams.Name && !u.RecipientDeleted),
-                "Outbox" => query.Where(u => u.Sender.Name == messageParams.Name && !u.SenderDeleted),
-                _ => query.Where(u => u.Recipient.Name == messageParams.Name && !u.RecipientDeleted && u.DateRead == null)
+                "Inbox" => query.Where(u => u.Recipient.UserName == messageParams.Name && !u.RecipientDeleted),
+                "Outbox" => query.Where(u => u.Sender.UserName == messageParams.Name && !u.SenderDeleted),
+                _ => query.Where(u => u.Recipient.UserName == messageParams.Name && !u.RecipientDeleted && u.DateRead == null)
             };
 
             var messages = query.ProjectTo<MessageDTO>(_mapper.ConfigurationProvider);

@@ -37,14 +37,14 @@ namespace API.Controllers
 
             var user = _mapper.Map<AppUser>(registerDto);
 
-            user.Name = registerDto.Name.ToLower();
+            user.UserName = registerDto.Name.ToLower();
 
             context.Users.Add(user);
             await context.SaveChangesAsync();
 
             var result = new UserDTO()
             {
-                Name = user.Name,
+                Name = user.UserName,
                 Token = tokenService.GenereteToken(user),
                 KnownAs = user.KnownAs,
                 Gender = user.Gender,
@@ -55,7 +55,7 @@ namespace API.Controllers
 
         private async Task<bool> UserExists(string username)
         {
-            return await context.Users.AnyAsync(x => x.Name.ToLower() == username.ToLower());
+            return await context.Users.AnyAsync(x => x.UserName.ToLower() == username.ToLower());
         }
 
         [HttpPost("login")]
@@ -63,7 +63,7 @@ namespace API.Controllers
         {
             var user = await context.Users
                 .Include(p => p.Photos)
-                .SingleOrDefaultAsync(x => x.Name == dto.Name);
+                .SingleOrDefaultAsync(x => x.UserName == dto.Name);
 
             if (user is null)
             {
@@ -72,7 +72,7 @@ namespace API.Controllers
 
             return new UserDTO()
             {
-                Name = user.Name,
+                Name = user.UserName,
                 Token = tokenService.GenereteToken(user),
                 PhotoUrl = user.Photos.FirstOrDefault(photo => photo.IsMain)?.Url,
                 KnownAs = user.KnownAs,
