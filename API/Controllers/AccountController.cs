@@ -27,24 +27,6 @@ namespace API.Controllers
             this.tokenService = tokenService;
         }
 
-        private (byte[] pwdHash, byte[] salt) GeneratePassword(string pwd)
-        {
-            using HMACSHA512 sha = new();
-
-            var pwdHash = sha.ComputeHash(Encoding.UTF8.GetBytes(pwd));
-
-            return (pwdHash: pwdHash, salt: sha.Key);
-        }
-
-        private (byte[] pwdHash, byte[] salt) GeneratePassword(string pwd, byte[] salt)
-        {
-            using HMACSHA512 sha = new(salt);
-
-            var pwdHash = sha.ComputeHash(Encoding.UTF8.GetBytes(pwd));
-
-            return (pwdHash: pwdHash, salt: sha.Key);
-        }
-
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register([FromBody] RegisterDTO registerDto)
         {
@@ -55,10 +37,7 @@ namespace API.Controllers
 
             var user = _mapper.Map<AppUser>(registerDto);
 
-            var pwdData = GeneratePassword(registerDto.pwd);
-
-            user.PasswordHash = pwdData.pwdHash;
-            user.PasswordSalt = pwdData.salt;
+            user.Name = registerDto.Name.ToLower();
 
             context.Users.Add(user);
             await context.SaveChangesAsync();
@@ -89,16 +68,6 @@ namespace API.Controllers
             if (user is null)
             {
                 return BadRequest("Incorrect username or password");
-            }
-
-            var pwdData = GeneratePassword(dto.Pwd, user.PasswordSalt);
-
-            for (int i = 0; i < user.PasswordHash.Length; i++)
-            {
-                if (user.PasswordHash[i] != pwdData.pwdHash[i])
-                {
-                    return BadRequest("Incorrect username or password");
-                }
             }
 
             return new UserDTO()

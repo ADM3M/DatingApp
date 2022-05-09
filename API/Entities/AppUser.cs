@@ -1,21 +1,12 @@
 using System;
 using System.Collections.Generic;
-using API.Extensions;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Entities
 {
-    public class AppUser
+    public class AppUser : IdentityUser<int>
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
-
-        public byte[] PasswordHash { get; set; }
-
-        public byte[] PasswordSalt { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 
@@ -28,7 +19,7 @@ namespace API.Entities
         public string Gender { get; set; }
 
         public string Introduction { get; set; }
-        
+
         public string LookingFor { get; set; }
 
         public string Interests { get; set; }
@@ -44,8 +35,11 @@ namespace API.Entities
         public ICollection<UserLike> LikedUsers { get; set; }
 
         public ICollection<Message> MessagesSent { get; set; }
-        
+
         public ICollection<Message> MessagesReceived { get; set; }
-        
+
+        public ICollection<AppUserRole> UserRoles { get; set; }
+
+
     }
 }
