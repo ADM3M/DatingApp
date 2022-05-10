@@ -29,7 +29,7 @@ namespace API.Controllers
                 .Select(u => new
                 {
                     u.Id,
-                    UserName = u.UserName,
+                    Name = u.UserName,
                     Roles = u.UserRoles.Select(r => r.Role.Name).ToList(),
                 })
                 .ToListAsync();
@@ -37,14 +37,18 @@ namespace API.Controllers
             return Ok(users);
         }
         
-        [HttpPost("edit-roles/{username}")]
-        public async Task<ActionResult> EditRoles(string username, [FromQuery] string roles)
+        [HttpPost("edit-roles/{name}")]
+        public async Task<ActionResult> EditRoles(string name, [FromQuery] string roles)
         {
+            if (roles is null) return BadRequest("User cannot have no roles");
+            
             var selectedRoles = roles.Split(",").ToArray();
 
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await _userManager.FindByNameAsync(name);
 
             if (user is null) return NotFound("Could not find user");
+
+            if (user.UserName.ToLower() == "admin") return BadRequest("You can't unpermit administrator!");
 
             var userRoles = await _userManager.GetRolesAsync(user);
 
