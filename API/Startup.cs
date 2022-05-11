@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using API.Extensions;
 using API.Middleware;
+using API.SignalR;
 
 namespace API
 {
@@ -24,6 +25,7 @@ namespace API
             services.AddApplicationServices(_config);
             services.AddCors();
             services.AddControllers();
+            services.AddSignalR();
             
             services.AddSwaggerGen(c =>
             {
@@ -49,7 +51,11 @@ namespace API
 
             app.UseRouting();
 
-            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+            app.UseCors(policy => policy
+                .AllowAnyMethod()
+                .AllowCredentials()
+                .AllowAnyHeader()
+                .WithOrigins("https://localhost:4200"));
             
             app.UseAuthentication();
             
@@ -58,6 +64,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
             });
         }
     }
