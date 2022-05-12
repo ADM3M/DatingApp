@@ -15,6 +15,8 @@ namespace API.Interfaces
         Task<Connection> GetConnection(string connectionId);
 
         Task<Group> GetMessageGroup(string groupName);
+
+        Task<Group> GetFroupForConnection(string connectionId);
         
         void AddMessage(Message message);
 
