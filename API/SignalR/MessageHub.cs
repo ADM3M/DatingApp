@@ -73,15 +73,13 @@ namespace API.SignalR
             if (await _messageRepository.SaveAllAsync())
             {
                 var groupName = GetGroupName(sender.UserName, recipient.UserName);
-                await Clients.Group(groupName).SendAsync("NewMessage", _mapper.Map<MessageDTO>(messageDTO));
+                await Clients.Group(groupName).SendAsync("NewMessage", _mapper.Map<MessageDTO>(message));
             }
-
-            throw new HubException("Failed to send message");
         }
 
         private string GetGroupName(string caller, string other)
         {
-            var stringCompare = string.CompareOrdinal(caller, other) <80;
+            var stringCompare = string.CompareOrdinal(caller, other) < 0;
             return stringCompare ? $"{caller}-{other}" : $"{other}-{caller}";
         }
     }
