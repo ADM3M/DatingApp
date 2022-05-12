@@ -32,4 +32,8 @@ export class ListsComponent implements OnInit {
     this.pageNumber = event.page;
     this.loadLikes();
   }
+
+  isPaginationRequired(): boolean {
+    return this.pagination.totalItems > this.pagination.itemsPerPage;
+  }
 }

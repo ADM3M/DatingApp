@@ -48,4 +48,8 @@ export class MemberListComponent implements OnInit {
     this.memberService.setUserParams(this.userParams);
     this.loadMembers();
   }
+
+  isPaginationRequired(): boolean {
+    return this.pagination.totalItems > this.pagination.itemsPerPage;
+  }
 }

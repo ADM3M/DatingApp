@@ -98,4 +98,5 @@ export class MemberService {
     params = params.append("predicate", predicate);
     return getPaginatedResult<Partial<IMember[]>>(this.baseUrl + "likes/", this.http, params);
   }
+
 }
