@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, GroupedObservable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { IGroup } from '../_models/IGroup';
 import { IMessage } from '../_models/IMessage';
 import { IUser } from '../_models/IUser';
 import { PaginatedResult } from '../_models/Pagination';
@@ -41,6 +42,22 @@ export class MessageService {
       this.messageThread$.pipe(take(1)).subscribe(messages => {
         this.messageThreadSource.next([...messages, message])
       })
+    })
+
+    this.hubConnection.on("UpdatedGroup", (group: IGroup) => {
+      if (group.connections.some(x => x.userName === otherUserName))
+      {
+        this.messageThread$.pipe(take(1)).subscribe(messages => {
+          messages.forEach(message => {
+            if (!message.dateRead)
+            {
+              message.dateRead = new Date(Date.now());
+            }
+          })
+
+          this.messageThreadSource.next([...messages])
+        })
+      }
     })
   }
 
