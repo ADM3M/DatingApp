@@ -30,5 +30,6 @@ export class MemberMessagesComponent implements OnInit {
 
   sayHi() {
     this.messageContent = "hi!";
+    this.sendMessage();
   }
 }

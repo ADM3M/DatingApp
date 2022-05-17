@@ -45,7 +45,7 @@
                     placeholder="Send a message">
                     
                 <div class="input-group-append">
-                    <button [disabled]="!messageForm.valid || messageContent.length == 0" class="btn btn-primary" type="submit">Send</button>
+                    <button  [disabled]="!messageForm.touched" class="btn btn-primary" type="submit">Send</button>
                 </div>
             </div>
         </form>
