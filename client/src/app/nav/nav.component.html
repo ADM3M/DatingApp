@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
   <div class="container">
-    <a class="navbar-brand" routerLink="/" routerLinkActive="active">Dating app</a>
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active">Messenger</a>
     <ul class="navbar-nav mr-auto">
       <ng-container *ngIf="accountService.currentUser$ | async">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/members" routerLinkActive="active">Matches</a>
+          <a class="nav-link" routerLink="/members" routerLinkActive="active">People</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/lists" routerLinkActive="active">Lists</a>
+          <a class="nav-link" routerLink="/lists" routerLinkActive="active">Subscribes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/messages" routerLinkActive="active">Messages</a>
@@ -16,7 +16,7 @@
           <a class="nav-link" *appHasRole='["Admin", "Moderator"]' routerLink="/admin" routerLinkActive="active">Admin</a>
         </li>
       </ng-container>
-      <li class="nav-item">
+      <li class="nav-item" [hidden]="true">
         <a class="nav-link" routerLink="/errors" routerLinkActive="active">Errors</a>
       </li>
     </ul>
