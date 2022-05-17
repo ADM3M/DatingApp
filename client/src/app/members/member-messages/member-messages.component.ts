@@ -27,4 +27,8 @@ export class MemberMessagesComponent implements OnInit {
       this.messageForm.reset();
     })
   }
+
+  sayHi() {
+    this.messageContent = "hi!";
+  }
 }
