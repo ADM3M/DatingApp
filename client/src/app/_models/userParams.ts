@@ -1,14 +1,14 @@
 import { IUser } from "./IUser";
 
 export class UserParams {
-    gender: string;
+    gender = "";
     minAge = 18;
     maxAge = 99;
     pageNumber = 1;
-    pageSize = 5;
+    pageSize = 6;
     orderBy = "lastActive";
 
     constructor(user: IUser) {
-        this.gender = user.gender === "female" ? "male" : "female";
+        
     }
 }
