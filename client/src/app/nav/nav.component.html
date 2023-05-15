@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
   <div class="container">
-    <a class="navbar-brand" routerLink="/" routerLinkActive="active">Messenger</a>
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active">Belarus Film Corporate Messenger</a>
     <ul class="navbar-nav mr-auto">
       <ng-container *ngIf="accountService.currentUser$ | async">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/members" routerLinkActive="active">People</a>
+          <a class="nav-link" routerLink="/members" routerLinkActive="active">Colleagues</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/lists" routerLinkActive="active">Subscribes</a>
+          <a class="nav-link" routerLink="/lists" routerLinkActive="active">Favorites</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/messages" routerLinkActive="active">Messages</a>
