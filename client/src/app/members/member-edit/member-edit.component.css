@@ -13,3 +13,17 @@
     background-color: #fff;
     border-top: none;
 }
+
+.location-details {
+    display: flex;
+    flex-direction: column;
+    max-width: 256px;
+}
+
+.location-details input {
+    margin-bottom: 20px;
+}
+
+.location-details input:last-child {
+    margin-bottom: 0px;
+}

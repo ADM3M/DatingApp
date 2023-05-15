@@ -17,6 +17,6 @@ namespace API.DTO
 
         public string PhotoUrl { get; set; }
 
-        public string City { get; set; }
+        public string Cabinet { get; set; }
     }
 }

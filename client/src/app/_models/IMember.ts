@@ -12,7 +12,7 @@ export interface IMember {
     introduction: string
     lookingFor: string
     interests: string
-    city: string
-    country: string
+    cabinet: string
+    department: string
     photos: Photo[]
 }

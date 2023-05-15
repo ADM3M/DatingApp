@@ -13,8 +13,8 @@
                 class="card-img-top img-thumbnail">
             <div class="card-body">
                 <div>
-                    <strong>Location:</strong>
-                    <p>{{member.city}}, {{member.country}}</p>
+                    <strong>Location details:</strong>
+                    <p>{{member.department}}, {{member.cabinet}}</p>
                 </div>
                 <div>
                     <strong>Age:</strong>
@@ -47,12 +47,25 @@
                     <textarea [(ngModel)]="member.interests" name="interests" rows="6" class="form-control"></textarea>
 
                     <h4 class="mt-2">Location details:</h4>
-                    <div class="form-inline">
-                        <label for="city">City</label>
-                        <input [(ngModel)]="member.city" type="text" name="city" class="form-control mx-2">
+                    <div class="location-details">
+                        <label for="department">Department</label>
+                        <div class="input-group mb-3">
+                            <select [className]="'custom-select'" id="departmentControl" [(ngModel)]="member.department" name="department" (change)="onDepartmentChanged()">
+                                <option>СМК</option>
+                                <option>ОРИП</option>
+                                <option>ПК "Кинопост"</option>
+                                <option>ПК "Тонстудия"</option>
+                                <option>ПК "Операторская техника"</option>
+                                <option>ТС</option>
+                                <option>АБ</option>
+                                <option>НП</option>
+                                <option>ЦДТС</option>
+                                <option>ОТ</option>
+                            </select>
+                        </div>
 
-                        <label for="country">Country</label>
-                        <input [(ngModel)]="member.country" type="text" name="country" class="form-control mx-2">
+                        <label for="cabinet">Cabinet</label>
+                        <input [(ngModel)]="member.cabinet" type="text" name="cabinet" class="form-control">
                     </div>
                 </form>
             </tab>

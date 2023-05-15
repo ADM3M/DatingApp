@@ -35,9 +35,9 @@ export class RegisterComponent implements OnInit {
       name: ["", Validators.required],
       knownAs: ["", Validators.required],
       dateOfBirth: ["", Validators.required],
-      city: ["", Validators.required],
-      country: ["", Validators.required],
-      pwd: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
+      department: ["", Validators.required],
+      cabinet: ["", [Validators.required, Validators.minLength(1)]],
+      pwd: ["", [Validators.required, Validators.minLength(4)]],
       confirmPassword: ["", [Validators.required, this.matchValue("pwd")]],
     });
 
