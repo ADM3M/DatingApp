@@ -57,7 +57,7 @@ namespace API.Controllers
                 Name = user.UserName,
                 Token = await tokenService.GenereteToken(user),
                 KnownAs = user.KnownAs,
-                Gender = user.Gender,
+                Gender = user.Gender, // Todo: confirm that this field is needed
             };
         }
 

@@ -78,6 +78,11 @@ namespace API.Data
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<bool> UserExistsAsync(int userId)
+        {
+            return await _context.Users.AnyAsync(u => u.Id == userId);
+        }
+
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
             return await _context.Users

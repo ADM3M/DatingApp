@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTO;
+using API.Entities;
 using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
+using API.Services.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,39 +17,44 @@ namespace API.Controllers
     public class LikesController : BaseApiController
     {
         private readonly IUnitOfWork _unitOfWork;
-        public LikesController(IUnitOfWork unitOfWork)
+        private readonly IFavoriteUserService _favoriteUserService;
+
+        public LikesController(IUnitOfWork unitOfWork, IFavoriteUserService favoriteUserService)
         {
             _unitOfWork = unitOfWork;
+            _favoriteUserService = favoriteUserService;
         }
 
-        [HttpPost("{username}")]
-        public async Task<ActionResult> AddLike(string userName)
+        [HttpPost("{targetUserId}")]
+        public async Task<ActionResult> AddLike(int targetUserId)
         {
-            var sourceUser = await _unitOfWork.LikesRepository.GetUserWithLikes(User.GetUserId());
-            
-            if (sourceUser.UserName == userName) return BadRequest("You can't like yourself");
-            
-            var likedUser = await _unitOfWork.UserReposiroty.GetUserByUserNameAsync(userName);
-            if (likedUser is null) return NotFound();
+            var currentUserId = User.GetUserId();
 
-            var userLike = await _unitOfWork.LikesRepository.GetUserLike(sourceUser.Id, likedUser.Id);
+            var targetUserExists = await _unitOfWork.UserReposiroty.UserExistsAsync(targetUserId);
 
-            if (userLike is not null)
+            if (!targetUserExists)
             {
-                return BadRequest("User has already been liked");
+                return BadRequest("Target user doesn't exists");
             }
 
-            userLike = new Entities.UserLike
+            var userLike = await _unitOfWork.LikesRepository.GetUserLike(currentUserId, targetUserId);
+
+            OperationResult<UserLike> operationResult;
+            if (userLike is null)
             {
-                SourceUserId = sourceUser.Id,
-                LikedUserId = likedUser.Id
-            };
+                operationResult = await _favoriteUserService.AddToFavorite(currentUserId, targetUserId);
+            }
+            else
+            {
+                operationResult = await _favoriteUserService.RemoveFromFavorites(currentUserId, targetUserId);
+            }
 
-            sourceUser.LikedUsers.Add(userLike);
+            if (!operationResult.Success)
+            {
+                return BadRequest("Error while adding user to favorites");
+            }
 
-            if (await _unitOfWork.Complete()) return Ok();
-
-            return BadRequest("Failed to like user");
+            return Ok();
         }
 
         [HttpGet]

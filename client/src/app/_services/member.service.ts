@@ -8,6 +8,7 @@ import { IUser } from '../_models/IUser';
 import { UserParams } from '../_models/userParams';
 import { AccountService } from './account.service';
 import { getPaginatedResult, getPaginationHeader } from './paginationHelper';
+import { IMemberWithDetails } from '../_models/IMemberWithDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,27 @@ export class MemberService {
     }));
   }
 
+  getMembersWithDetails(userParams: UserParams) {
+
+    var response = this.memberCache.get(Object.values(userParams).join("-"));
+
+    if (response) {
+      return of(response);
+    }
+
+    let httpParams = getPaginationHeader(userParams.pageNumber, userParams.pageSize);
+    httpParams = httpParams
+      .append("minAge", userParams.minAge.toString())
+      .append("maxAge", userParams.maxAge.toString())
+      .append("gender", userParams.gender)
+      .append("orderBy", userParams.orderBy);
+
+    return getPaginatedResult<IMemberWithDetails[]>(this.baseUrl + "users/details", this.http, httpParams).pipe(map(response => {
+      this.memberCache.set(Object.values(userParams).join("-"), response);
+      return response;
+    }));
+  }
+
   getMember(username: string) {
     let member = [...this.memberCache.values()]
       .reduce((arr, elem) => arr.concat(elem.result), [])
@@ -89,8 +111,8 @@ export class MemberService {
     return this.http.delete(this.baseUrl + "users/delete-photo/" + photoId);
   }
 
-  addLike(username: string) {
-    return this.http.post(this.baseUrl + "likes/" + username, {});
+  addLike(userId: number) {
+    return this.http.post(this.baseUrl + "likes/" + userId, {});
   }
 
   getLikes(predicate: string, pageNumber: number, pageSize: number) {

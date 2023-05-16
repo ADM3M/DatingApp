@@ -25,6 +25,8 @@ namespace API.Extensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<LogUserActivity>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IFavoriteUserService, FavoriteUserService>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
             return services;

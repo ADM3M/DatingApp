@@ -24,13 +24,18 @@ namespace API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
+        private readonly IUserService _userService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public UsersController(IUnitOfWork unitOfWork, IMapper mapper,
-         IPhotoService photoService)
+        public UsersController(
+            IUnitOfWork unitOfWork,
+            IMapper mapper,
+            IPhotoService photoService,
+            IUserService userService)
         {
             _unitOfWork = unitOfWork;
             _photoService = photoService;
+            _userService = userService;
             _mapper = mapper;
         }
 
@@ -46,6 +51,34 @@ namespace API.Controllers
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
             return Ok(users);
+        }
+
+        [HttpGet("details")]
+        public async Task<ActionResult<IEnumerable<MemberWithDetailsDTO>>> GetUserWithDetails(
+            [FromQuery] UserParams userParams)
+        {
+            var gender = await _unitOfWork.UserReposiroty.GetUserGender(User.GetUserName());
+
+            userParams.CurrentUserName = User.GetUserName();
+            var userId = User.GetUserId();
+
+            var members = await _unitOfWork.UserReposiroty.GetMembersAsync(userParams);
+
+            var favoriteUserIds = await _userService.GetUserFavoriteUserIds(userId);
+
+            Response.AddPaginationHeader(members.CurrentPage, members.PageSize, members.TotalCount, members.TotalPages);
+
+            var membersWithDetails = members.Select(CreateFrom);
+            
+            return Ok(membersWithDetails);
+            
+            MemberWithDetailsDTO CreateFrom(MemberDTO member)
+            {
+                var memberWithDetails = _mapper.Map<MemberWithDetailsDTO>(member);
+                memberWithDetails.IsFavorite = favoriteUserIds.Contains(member.Id);
+
+                return memberWithDetails;
+            }
         }
 
         [HttpGet("{name}", Name = "GetUser")]

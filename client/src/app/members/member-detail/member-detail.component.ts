@@ -96,8 +96,8 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     this.memberTabs.tabs[tabId].active = true;
   }
 
-  addLike(member: IMember) {
-    this.memberService.addLike(member.name).subscribe(() => {
+  addLike(memberId: number) {
+    this.memberService.addLike(memberId).subscribe(() => {
       this.toastr.success("User has been liked")
     });
   }
