@@ -23,8 +23,8 @@
             <span [class.is-online]="(presence.onlineUsers$ | async).includes(member.name)">
                 <i class="fa fa-user mr-2"></i>
             </span>
-            {{member.name}}, {{member.age}}
+            {{member.name}}
         </h6>
-        <p class="card-text text-muted text-center">{{member.cabinet}}</p>
+        <p class="card-text text-muted text-center">{{member.department}}, {{member.cabinet}}</p>
     </div>
 </div>
