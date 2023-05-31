@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Threading.Tasks;
-using API.Data;
 using API.DTO;
 using API.Entities;
 using API.Interfaces;
