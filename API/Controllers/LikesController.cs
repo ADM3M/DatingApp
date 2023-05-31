@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTO;
 using API.Entities;
+using API.Enums;
 using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
@@ -24,7 +25,7 @@ namespace API.Controllers
         }
 
         [HttpPost("{targetUserId}")]
-        public async Task<ActionResult> AddLike(int targetUserId)
+        public async Task<ActionResult<LikeState>> AddLike(int targetUserId)
         {
             var currentUserId = User.GetUserId();
 
@@ -38,13 +39,16 @@ namespace API.Controllers
             var userLike = await _unitOfWork.LikesRepository.GetUserLike(currentUserId, targetUserId);
 
             OperationResult<UserLike> operationResult;
+            LikeState likeState;
             if (userLike is null)
             {
                 operationResult = await _favoriteUserService.AddToFavorite(currentUserId, targetUserId);
+                likeState = LikeState.Liked;
             }
             else
             {
                 operationResult = await _favoriteUserService.RemoveFromFavorites(currentUserId, targetUserId);
+                likeState = LikeState.Unliked;
             }
 
             if (!operationResult.Success)
@@ -52,7 +56,7 @@ namespace API.Controllers
                 return BadRequest("Error while adding user to favorites");
             }
 
-            return Ok();
+            return Ok(likeState);
         }
 
         [HttpGet]

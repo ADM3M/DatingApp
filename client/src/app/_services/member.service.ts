@@ -9,6 +9,7 @@ import { UserParams } from '../_models/userParams';
 import { AccountService } from './account.service';
 import { getPaginatedResult, getPaginationHeader } from './paginationHelper';
 import { IMemberWithDetails } from '../_models/IMemberWithDetails';
+import { LikeState } from '../enums/LikeState';
 
 @Injectable({
   providedIn: 'root'
@@ -114,7 +115,7 @@ export class MemberService {
   }
 
   addLike(userId: number) {
-    return this.http.post(this.baseUrl + "likes/" + userId, {});
+    return this.http.post(this.baseUrl + "likes/" + userId, {}).pipe(map((likeState: LikeState) => likeState));
   }
 
   getLikes(predicate: string, pageNumber: number, pageSize: number) {

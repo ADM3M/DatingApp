@@ -11,6 +11,8 @@ import { IUser } from 'src/app/_models/IUser';
 import { AccountService } from 'src/app/_services/account.service';
 import { MemberService } from 'src/app/_services/member.service';
 import { MessageService } from 'src/app/_services/message.service';
+import { LikeState } from 'src/app/enums/LikeState';
+import { getLikeMessage } from 'src/app/utils/getLikeMessage';
 
 @Component({
   selector: 'app-member-detail',
@@ -97,8 +99,8 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   }
 
   addLike(memberId: number) {
-    this.memberService.addLike(memberId).subscribe(() => {
-      this.toastr.success("User has been liked")
+    this.memberService.addLike(memberId).subscribe(likeState => {
+      this.toastr.success(getLikeMessage(likeState));
     });
   }
 

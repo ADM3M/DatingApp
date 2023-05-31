@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { IMember } from 'src/app/_models/IMember';
 import { IMemberWithDetails } from 'src/app/_models/IMemberWithDetails';
 import { MemberService } from 'src/app/_services/member.service';
 import { PresenceService } from 'src/app/_services/presence.service';
+import { LikeState } from 'src/app/enums/LikeState';
+import { getLikeMessage } from 'src/app/utils/getLikeMessage';
 
 @Component({
   selector: 'app-member-card',
@@ -28,8 +29,9 @@ export class MemberCardComponent implements OnInit {
   }
 
   addToFavorites(memberId: number) {
-    this.memberService.addLike(memberId).subscribe(() => {
-      this.toastr.success("User has been added to favorites")
+    this.memberService.addLike(memberId).subscribe(likeState => {
+      this.toastr.success(getLikeMessage(likeState));
+      this.member.isFavorite = likeState === LikeState.Liked ? true : false;
     });
   }
 }
