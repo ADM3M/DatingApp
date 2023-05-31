@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,6 +43,20 @@ namespace API.Controllers
 
             var users = await _unitOfWork.UserReposiroty.GetMembersAsync(userParams);
 
+            if (!string.IsNullOrWhiteSpace(userParams.Department))
+            {
+                var usersFilteredByDepartment = users.Where(u =>
+                    u.Department.Contains(userParams.Department, StringComparison.CurrentCultureIgnoreCase));
+                users = PagedList<MemberDTO>.Create(usersFilteredByDepartment, userParams.PageNumber, userParams.PageSize);
+            }
+
+            if (!string.IsNullOrWhiteSpace(userParams.EmployeeName))
+            {
+                var usersFilteredByDepartment = users.Where(u =>
+                    u.Name.Contains(userParams.EmployeeName, StringComparison.CurrentCultureIgnoreCase));
+                users = PagedList<MemberDTO>.Create(usersFilteredByDepartment, userParams.PageNumber, userParams.PageSize);
+            }
+
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
             return Ok(users);
@@ -57,6 +72,20 @@ namespace API.Controllers
             var userId = User.GetUserId();
 
             var members = await _unitOfWork.UserReposiroty.GetMembersAsync(userParams);
+            
+            if (!string.IsNullOrWhiteSpace(userParams.Department))
+            {
+                var usersFilteredByDepartment = members.Where(u =>
+                    u.Department.Contains(userParams.Department, StringComparison.CurrentCultureIgnoreCase));
+                members = PagedList<MemberDTO>.Create(usersFilteredByDepartment, userParams.PageNumber, userParams.PageSize);
+            }
+
+            if (!string.IsNullOrWhiteSpace(userParams.EmployeeName))
+            {
+                var usersFilteredByDepartment = members.Where(u =>
+                    u.Name.Contains(userParams.EmployeeName, StringComparison.CurrentCultureIgnoreCase));
+                members = PagedList<MemberDTO>.Create(usersFilteredByDepartment, userParams.PageNumber, userParams.PageSize);
+            }
 
             var favoriteUserIds = await _userService.GetUserFavoriteUserIds(userId);
 

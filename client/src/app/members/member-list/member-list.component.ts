@@ -5,13 +5,13 @@ import { IPagination } from 'src/app/_models/Pagination';
 import { UserParams } from 'src/app/_models/userParams';
 import { MemberService } from 'src/app/_services/member.service';
 
+
 @Component({
   selector: 'app-member-list',
   templateUrl: './member-list.component.html',
   styleUrls: ['./member-list.component.css']
 })
 export class MemberListComponent implements OnInit {
-
   members: IMemberWithDetails[];
   pagination: IPagination;
   userParams: UserParams;

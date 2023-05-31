@@ -1,0 +1,17 @@
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header label,
+.header input,
+.header select {
+    margin-right: 5px;
+}
+
+div.container.mt-3,
+div.col {
+    padding: 0;
+}

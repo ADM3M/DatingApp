@@ -74,7 +74,9 @@ export class MemberService {
       .append("minAge", userParams.minAge.toString())
       .append("maxAge", userParams.maxAge.toString())
       .append("gender", userParams.gender)
-      .append("orderBy", userParams.orderBy);
+      .append("orderBy", userParams.orderBy)
+      .append("department", userParams.department ?? '')
+      .append("employeeName", userParams.employeeName ?? '');
 
     return getPaginatedResult<IMemberWithDetails[]>(this.baseUrl + "users/details", this.http, httpParams).pipe(map(response => {
       this.memberCache.set(Object.values(userParams).join("-"), response);
