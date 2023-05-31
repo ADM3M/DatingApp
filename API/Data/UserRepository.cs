@@ -31,31 +31,43 @@ namespace API.Data
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<PagedList<MemberDTO>> GetMembersAsync(UserParams userParams)
+        public PagedList<MemberDTO> GetMembers(UserParams userParams)
         {
-            var query = _context.Users.AsQueryable();
+            IEnumerable<AppUser> users = _context.Users
+                .Include(u => u.UserRoles)
+                .Include(u => u.Photos)
+                .ToList()
+                .Where(u => CheckIfCurrentUserOrAdmin(u, userParams.CurrentUserName));
 
-            query = query
-                .Where(u => u.UserName != userParams.CurrentUserName);
-
-            if (!string.IsNullOrWhiteSpace(userParams.Gender))
+            if (!string.IsNullOrWhiteSpace(userParams.EmployeeName))
             {
-                query = query.Where(u => u.Gender == userParams.Gender);
+                users = users.Where(u =>
+                    u.KnownAs.Contains(userParams.EmployeeName, StringComparison.CurrentCultureIgnoreCase));
             }
-
-            var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
-            var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
-
-            query = query.Where(u => u.DateOfBirth <= maxDob && u.DateOfBirth >= minDob);
-            query = userParams.OrderBy switch
+            
+            if (!string.IsNullOrWhiteSpace(userParams.Department))
             {
-                "created" => query.OrderBy(u => u.Created),
-                _ => query.OrderByDescending(u => u.LastActive),
+                users = users.Where(u =>
+                    u.Department.Contains(userParams.Department, StringComparison.CurrentCultureIgnoreCase));
+            }
+            
+            users = userParams.OrderBy switch
+            {
+                "created" => users.OrderBy(u => u.Created),
+                _ => users.OrderByDescending(u => u.LastActive),
             };
 
-            return await PagedList<MemberDTO>.CreateAsync(query.ProjectTo<MemberDTO>(_mapper
-                .ConfigurationProvider).AsNoTracking(),
+            return PagedList<MemberDTO>.Create(_mapper.Map<IReadOnlyCollection<MemberDTO>>(users.ToList()),
                     userParams.PageNumber, userParams.PageSize);
+        }
+
+        private bool CheckIfCurrentUserOrAdmin(AppUser appUser, string currentUsername)
+        {
+            var isCurrentUser = appUser.UserName == currentUsername;
+
+            var isAdmin = appUser.UserRoles != null && appUser.UserRoles.Any(ur => ur.RoleId != 1);
+            
+            return !isCurrentUser && !isAdmin;
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)

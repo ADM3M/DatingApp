@@ -35,27 +35,11 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers([FromQuery] UserParams userParams)
+        public ActionResult<IEnumerable<MemberDTO>> GetUsers([FromQuery] UserParams userParams)
         {
-            var gender = await _unitOfWork.UserReposiroty.GetUserGender(User.GetUserName());
-
             userParams.CurrentUserName = User.GetUserName();
 
-            var users = await _unitOfWork.UserReposiroty.GetMembersAsync(userParams);
-
-            if (!string.IsNullOrWhiteSpace(userParams.Department))
-            {
-                var usersFilteredByDepartment = users.Where(u =>
-                    u.Department.Contains(userParams.Department, StringComparison.CurrentCultureIgnoreCase));
-                users = PagedList<MemberDTO>.Create(usersFilteredByDepartment, userParams.PageNumber, userParams.PageSize);
-            }
-
-            if (!string.IsNullOrWhiteSpace(userParams.EmployeeName))
-            {
-                var usersFilteredByDepartment = users.Where(u =>
-                    u.Name.Contains(userParams.EmployeeName, StringComparison.CurrentCultureIgnoreCase));
-                users = PagedList<MemberDTO>.Create(usersFilteredByDepartment, userParams.PageNumber, userParams.PageSize);
-            }
+            var users = _unitOfWork.UserReposiroty.GetMembers(userParams);
 
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
@@ -66,26 +50,10 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<MemberWithDetailsDTO>>> GetUserWithDetails(
             [FromQuery] UserParams userParams)
         {
-            var gender = await _unitOfWork.UserReposiroty.GetUserGender(User.GetUserName());
-
             userParams.CurrentUserName = User.GetUserName();
             var userId = User.GetUserId();
 
-            var members = await _unitOfWork.UserReposiroty.GetMembersAsync(userParams);
-            
-            if (!string.IsNullOrWhiteSpace(userParams.Department))
-            {
-                var usersFilteredByDepartment = members.Where(u =>
-                    u.Department.Contains(userParams.Department, StringComparison.CurrentCultureIgnoreCase));
-                members = PagedList<MemberDTO>.Create(usersFilteredByDepartment, userParams.PageNumber, userParams.PageSize);
-            }
-
-            if (!string.IsNullOrWhiteSpace(userParams.EmployeeName))
-            {
-                var usersFilteredByDepartment = members.Where(u =>
-                    u.Name.Contains(userParams.EmployeeName, StringComparison.CurrentCultureIgnoreCase));
-                members = PagedList<MemberDTO>.Create(usersFilteredByDepartment, userParams.PageNumber, userParams.PageSize);
-            }
+            var members = _unitOfWork.UserReposiroty.GetMembers(userParams);
 
             var favoriteUserIds = await _userService.GetUserFavoriteUserIds(userId);
 
