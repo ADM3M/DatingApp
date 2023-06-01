@@ -1,11 +1,11 @@
 <div class="mb-4">
     <div class="btn-group" name="container">
         <button class="btn btn-primary" btnRadio="Inbox" 
-            [(ngModel)]="container" (click)="loadMessages()"><i class="fa fa-envelope"></i> Inbox</button>
+            [(ngModel)]="container" (click)="loadMessages()"><i class="fa fa-envelope"></i> Входящие</button>
         <button class="btn btn-primary" btnRadio="Outbox" 
-            [(ngModel)]="container" (click)="loadMessages()"><i class="fa fa-envelope-open"></i> Outbox</button>
+            [(ngModel)]="container" (click)="loadMessages()"><i class="fa fa-envelope-open"></i> Исходящие</button>
         <button class="btn btn-primary" btnRadio="Unread" 
-            [(ngModel)]="container" (click)="loadMessages()"><i class="fa fa-envelope-plane"></i> Unread</button>
+            [(ngModel)]="container" (click)="loadMessages()"><i class="fa fa-envelope-plane"></i> Непрочитанные</button>
     </div>
 </div>
 
@@ -16,9 +16,9 @@
 <div class="row" *ngIf="messages?.length > 0">
     <table class="table table-hover" style="cursor: pointer;">
         <tr>
-            <th style="width: 40%">Message</th>
-            <th style="width: 20%">{{container == "Inbox" ? "From" : "To"}}</th>
-            <th style="width: 20%">{{container == "Inbox" ? "Received" : "Send"}}</th>
+            <th style="width: 40%">Сообщение</th>
+            <th style="width: 20%">{{container == "Inbox" ? "Отправитель" : "Получатель"}}</th>
+            <th style="width: 20%">{{container == "Inbox" ? "Получено" : "Отправлено"}}</th>
             <th style="width: 20%"></th>
         </tr>
 
@@ -42,9 +42,9 @@
                     <strong>{{message.senderName | titlecase}}</strong>
                 </div>
             </td>
-            <td>{{message.messageSent | timeago}}</td>
+            <td>{{translateDateTime(message.messageSent | timeago)}}</td>
             <td>
-                <div (click)="$event.stopPropagation()" (click)="deleteMessage(message.id)" class="btn btn-outline-danger">Delete</div>
+                <div (click)="$event.stopPropagation()" (click)="deleteMessage(message.id)" class="btn btn-outline-danger">Удалить</div>
             </td>
         </tr>
     </table>

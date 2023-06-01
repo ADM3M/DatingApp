@@ -1,19 +1,19 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
   <div class="container">
-    <a class="navbar-brand" routerLink="/" routerLinkActive="active">Belarus Film Corporate Messenger</a>
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active">Мессенджер для БФ</a>
     <ul class="navbar-nav mr-auto">
       <ng-container *ngIf="accountService.currentUser$ | async">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/members" routerLinkActive="active">Colleagues</a>
+          <a class="nav-link" routerLink="/members" routerLinkActive="active">Коллеги</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/lists" routerLinkActive="active">Favorites</a>
+          <a class="nav-link" routerLink="/lists" routerLinkActive="active">Избранное</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/messages" routerLinkActive="active">Messages</a>
+          <a class="nav-link" routerLink="/messages" routerLinkActive="active">Сообщения</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *appHasRole='["Admin", "Moderator"]' routerLink="/admin" routerLinkActive="active">Admin</a>
+          <a class="nav-link" *appHasRole='["Admin", "Moderator"]' routerLink="/admin" routerLinkActive="active">Администраторам</a>
         </li>
       </ng-container>
       <li class="nav-item" [hidden]="true">
@@ -25,8 +25,8 @@
       <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.name}}" class="mr-2">
       <a id="user_dropdown" dropdownToggle class="dropdown-toggle text-primary">{{user.name | titlecase}}</a>
       <div class="dropdown-menu" *dropdownMenu>
-        <a routerLink="/member/edit" class="dropdown-item">Edit profile</a>
-        <a class="dropdown-item" (click)="logout()">Logout</a>
+        <a routerLink="/member/edit" class="dropdown-item">Редактировать профиль</a>
+        <a class="dropdown-item" (click)="logout()">Выйти</a>
       </div>
     </div>
 
@@ -36,7 +36,7 @@
         placeholder="Username">
       <input name="pwd" [(ngModel)]="model.pwd" class="form-control mr-sm-2" type="password"
         placeholder="Password">
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Login</button>
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Войти</button>
     </form>
   </div>
 </nav>

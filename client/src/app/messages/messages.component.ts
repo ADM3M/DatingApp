@@ -3,6 +3,7 @@ import { IMessage } from '../_models/IMessage';
 import { IPagination, PaginatedResult } from '../_models/Pagination';
 import { ConfirmService } from '../_services/confirm.service';
 import { MessageService } from '../_services/message.service';
+import { getLocalizedDateTime } from '../utils/getLocalizedDate';
 
 @Component({
   selector: 'app-messages',
@@ -48,5 +49,9 @@ export class MessagesComponent implements OnInit {
         })
       }
     })
+  }
+
+  translateDateTime(dateTime: string) {
+    return getLocalizedDateTime(dateTime);
   }
 }

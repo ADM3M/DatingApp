@@ -1,8 +1,8 @@
 <div class="card">
     <div class="card-body">
         <div *ngIf="(messageService.messageThread$ | async)?.length === 0">
-            No messages yet...
-            <span (click)="sayHi()" style="text-decoration: underline; cursor: pointer;">Say hi!</span>
+            Пока здесь пусто...
+            <span (click)="sayHi()" style="text-decoration: underline; cursor: pointer;">Поздоровайся!</span>
         </div>
 
         <ul #scrollMe
@@ -19,10 +19,10 @@
                             <small class="text-muted">
                                 <span class="fa fa-clock-o"> {{message.messageSent | timeago}}</span>
                                 <span class="text-danger" *ngIf="!message.dateRead && message.senderName !== name">
-                                    (unread)
+                                    (непрочитано)
                                 </span>
                                 <span class="text-info" *ngIf="message.dateRead && message.senderName !== name">
-                                    (seen {{message.dateRead | timeago}})
+                                    (прочитано {{message.dateRead | timeago}})
                                 </span>
                             </small>
                         </div>
@@ -42,10 +42,10 @@
                     [(ngModel)]="messageContent"
                     type="text" 
                     class="form-control input-sm" 
-                    placeholder="Send a message">
+                    placeholder="Отправь сообщение">
                     
                 <div class="input-group-append">
-                    <button  [disabled]="!messageForm.touched" class="btn btn-primary" type="submit">Send</button>
+                    <button  [disabled]="!messageForm.touched" class="btn btn-primary" type="submit">Отправить</button>
                 </div>
             </div>
         </form>

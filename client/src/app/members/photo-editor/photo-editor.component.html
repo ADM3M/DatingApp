@@ -3,7 +3,7 @@
         <img src="{{photo.url}}" alt="{{photo.url}}" class="img-thumbnail p-1">
         <div class="">
             <button [disabled]="photo.isMain" (click)="setMainPhoto(photo)"
-                [ngClass]="photo.isMain ? 'btn btn-success' : 'btn btn-outline-success'">Main</button>
+                [ngClass]="photo.isMain ? 'btn btn-success' : 'btn btn-outline-success'">Главное</button>
             <button [disabled]="photo.isMain" (click)="deletePhoto(photo.id)" class="btn btn-danger"><i
                     class="fa fa-trash"></i></button>
         </div>
@@ -14,31 +14,31 @@
 
     <div class="col-md-3">
 
-        <h3>Select files</h3>
+        <h3>Выберите файлы</h3>
 
         <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)"
             [uploader]="uploader" class="card bg-faded p-3 text-center mb-3 my-drop-zone">
             <i class="fa fa-upload fa-3x"></i>
-            Drop photos here
+            Перетащите фото сюда
         </div>
 
-        Multiple
+        Несколько
         <input type="file" ng2FileSelect [uploader]="uploader" multiple /><br />
 
-        Single
+        Одно
         <input type="file" ng2FileSelect [uploader]="uploader" />
     </div>
 
     <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length">
 
-        <h3>Upload queue</h3>
-        <p>Queue length: {{ uploader?.queue?.length }}</p>
+        <h3>Очередь загрузки</h3>
+        <p>Длина очереди: {{ uploader?.queue?.length }}</p>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th width="50%">Name</th>
-                    <th>Size</th>
+                    <th width="50%">Название</th>
+                    <th>Размер</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -50,12 +50,12 @@
                     <td *ngIf="uploader.options.isHTML5" nowrap>
                         <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadItem(item)"
                             [disabled]="!uploader.getNotUploadedItems().length">
-                            <span class="fa fa-upload"></span> Upload</button>
+                            <span class="fa fa-upload"></span> Загрузить</button>
                     </td>
                     <td *ngIf="uploader.options.isHTML5" nowrap>
                         <button type="button" class="btn btn-danger btn-s" (click)="uploader.removeFromQueue(item)"
                             [disabled]="!uploader.queue.length">
-                            <span class="fa fa-trash"></span> Remove
+                            <span class="fa fa-trash"></span> Удалить
                         </button>
                     </td>
                 </tr>
@@ -64,7 +64,7 @@
 
         <div>
             <div>
-                Queue progress:
+                Прогресс очереди:
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
                 </div>
@@ -75,11 +75,11 @@
             </button>
             <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()"
                 [disabled]="!uploader.isUploading">
-                <span class="fa fa-ban"></span> Cancel
+                <span class="fa fa-ban"></span> Отменить
             </button>
             <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()"
                 [disabled]="!uploader.queue.length">
-                <span class="fa fa-trash"></span> Remove all
+                <span class="fa fa-trash"></span> Удалить всё
             </button>
         </div>
 

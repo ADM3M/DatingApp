@@ -2,11 +2,11 @@ import { LikeState } from "../enums/LikeState"
 
 export const getLikeMessage = (state: LikeState) => {
     if (state === LikeState.Liked) {
-        return 'User was added to favorites';
+        return 'Пользователь добавлен в избранное';
     }
 
     if (state === LikeState.Unliked) {
-        return 'User was removed from favorites';
+        return 'Пользователь больше не избранный';
     }
 
     return 'User was either added or removed from favorites';

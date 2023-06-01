@@ -1,18 +1,18 @@
 <div class="tex-center mt-3">
-    <h2>Members {{predicate == "liked" ? "I liked" : "who liked me"}}</h2>
+    <h2>{{predicate == "liked" ? "Избранное" : "Избранный у пользователей"}}</h2>
 </div>
 
 <div class="container mt-3">
         <div class="btn-group" name="predicate">
-            <button class="btn btn-primary" btnRadio="liked" [disabled]="predicate == 'liked'" [(ngModel)]="predicate" (click)="loadLikes()">Members I like</button>
-            <button class="btn btn-primary" btnRadio="likedBy" [disabled]="predicate == 'likedBy'" [(ngModel)]="predicate" (click)="loadLikes()">Members who like me</button>
+            <button class="btn btn-primary" btnRadio="liked" [disabled]="predicate == 'liked'" [(ngModel)]="predicate" (click)="loadLikes()">Моё избранное</button>
+            <button class="btn btn-primary" btnRadio="likedBy" [disabled]="predicate == 'likedBy'" [(ngModel)]="predicate" (click)="loadLikes()">Избранный у пользователе</button>
         </div>
 
     <div class="row mt-3">
         <div class="col-2" *ngFor="let member of members">
             <app-member-card [member]="member"></app-member-card>
         </div>
-        <div *ngIf="members?.length === 0" class="col-2">No one...</div>
+        <div *ngIf="members?.length === 0" class="col-2">Пусто...</div>
     </div>
 </div>
 

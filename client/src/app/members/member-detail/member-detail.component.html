@@ -5,26 +5,22 @@
                 class="card-img-top img-thumbnail">
             <div class="card-body">
                 <div>
-                    <strong>Location details:</strong>
+                    <strong>Местоположение:</strong>
                     <p>{{member.department}}, {{member.cabinet}}</p>
                 </div>
                 <div>
-                    <strong>Age:</strong>
+                    <strong>Возраст:</strong>
                     <p>{{member.age}}</p>
                 </div>
                 <div>
-                    <strong>Last active:</strong>
-                    <p>{{member.lastActive | timeago}}</p>
-                </div>
-                <div>
-                    <strong>Member since:</strong>
+                    <strong>Дата регистрации</strong>
                     <p>{{member.created | date}}</p>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="btn-group d-flex">
-                    <button (click)="addLike(member.id)" class="btn btn-primary">Favorite</button>
-                    <button (click)="selectTab(3)" class="btn btn-success">Message</button>
+                    <button (click)="addLike(member.id)" class="btn btn-primary">Избранное</button>
+                    <button (click)="selectTab(3)" class="btn btn-success">Сообщения</button>
                 </div>
             </div>
         </div>
@@ -32,20 +28,20 @@
 
     <div class="col-8">
         <tabset class="member-tabset" #memberTabs>
-            <tab heading="About {{member.knownAs}}" (selectTab)="onTabActivated($event)">
-                <h4>Description</h4>
+            <tab heading="{{member.knownAs}}" (selectTab)="onTabActivated($event)">
+                <h4>О сотруднике</h4>
                 <p>{{member.introduction}}</p>
             </tab>
-            <tab heading="Interests" (selectTab)="onTabActivated($event)">
-                <h4>Interests</h4>
+            <tab heading="Интересы" (selectTab)="onTabActivated($event)">
+                <h4>Интересы</h4>
                 <p>{{member.interests}}</p>
             </tab>
-            <tab heading="Photos" (selectTab)="onTabActivated($event)">
+            <tab heading="фотографии" (selectTab)="onTabActivated($event)">
                 <ngx-gallery *ngIf="member.photos.length > 0" [options]="galleryOptions" [images]="galleryImages"
                     style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
-                <h5 *ngIf="member.photos.length == 0">User doesn't have any photo</h5>
+                <h5 *ngIf="member.photos.length == 0">У пользователя нет фотограффий</h5>
             </tab>
-            <tab heading="Messages" (selectTab)="onTabActivated($event)">
+            <tab heading="Сообщения" (selectTab)="onTabActivated($event)">
                 <app-member-messages [messages]="messages" [name]="member.name"></app-member-messages>
             </tab>
         </tabset>

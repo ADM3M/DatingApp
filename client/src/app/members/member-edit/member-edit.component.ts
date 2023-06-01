@@ -6,6 +6,7 @@ import { IMember } from 'src/app/_models/IMember';
 import { IUser } from 'src/app/_models/IUser';
 import { AccountService } from 'src/app/_services/account.service';
 import { MemberService } from 'src/app/_services/member.service';
+import { getLocalizedDateTime } from 'src/app/utils/getLocalizedDate';
 
 @Component({
   selector: 'app-member-edit',
@@ -32,8 +33,12 @@ export class MemberEditComponent implements OnInit {
 
   updateMember() {
     this.memberService.updateMember(this.member).subscribe(() => {
-      this.toastService.success("Profile updated successfully!");
+      this.toastService.success("Профиль успешно обновлён!");
       this.editForm.reset(this.member);
     })
+  }
+
+  translateDate(dateTime: string) {
+    return getLocalizedDateTime(dateTime)
   }
 }
