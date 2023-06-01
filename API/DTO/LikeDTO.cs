@@ -13,5 +13,7 @@ namespace API.DTO
         public string PhotoUrl { get; set; }
 
         public string Cabinet { get; set; }
+
+        public string Department { get; set; }
     }
 }

@@ -45,6 +45,7 @@ namespace API.Data
                 Name = u.UserName,
                 KnownAs = u.KnownAs,
                 Cabinet = u.Cabinet,
+                Department = u.Department,
                 Age = u.DateOfBirth.CalculateAge(),
                 PhotoUrl = u.Photos.FirstOrDefault(p => p.IsMain).Url,
             });
