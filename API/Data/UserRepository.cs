@@ -42,7 +42,8 @@ namespace API.Data
             if (!string.IsNullOrWhiteSpace(userParams.EmployeeName))
             {
                 users = users.Where(u =>
-                    u.KnownAs.Contains(userParams.EmployeeName, StringComparison.CurrentCultureIgnoreCase));
+                    u.KnownAs.Contains(userParams.EmployeeName, StringComparison.CurrentCultureIgnoreCase)
+                    || u.UserName.Contains(userParams.EmployeeName, StringComparison.CurrentCultureIgnoreCase));
             }
             
             if (!string.IsNullOrWhiteSpace(userParams.Department))
