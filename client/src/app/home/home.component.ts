@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service'; 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
   registerMode = false;
   users : any;
 
-  constructor(private http: HttpClient, private accountService: AccountService) { }
+  constructor(private http: HttpClient, private accountService: AccountService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -28,5 +29,9 @@ export class HomeComponent implements OnInit {
 
   checkIfUserLoggedIn() {
     return this.accountService.checkIfUserLoggedIn();
+  }
+
+  navigateToAboutSection() {
+    this.router.navigateByUrl("about");
   }
 }

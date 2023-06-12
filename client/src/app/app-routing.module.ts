@@ -14,6 +14,7 @@ import { AdminGuard } from './_guards/admin.guard';
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
     runGuardsAndResolvers: "always",
     canActivate: [AuthGuard],
     children: [
+      { path: "about", component: AboutComponent },
       { path: "members", component: MemberListComponent, canActivate: [AuthGuard] },
       { path: "members/:name", component: MemberDetailComponent, resolve: {member: MemberDetailedResolver} },
       { path: "member/edit", component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard] },
