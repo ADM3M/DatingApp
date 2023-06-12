@@ -55,4 +55,8 @@ export class AccountService {
   getDecodedToken(token) {
     return JSON.parse(atob(token.split(".")[1]))
   }
+
+  checkIfUserLoggedIn() {
+    return !!localStorage.getItem('user');
+  }
 }
