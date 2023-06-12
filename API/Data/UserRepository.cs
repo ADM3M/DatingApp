@@ -49,7 +49,7 @@ namespace API.Data
             if (!string.IsNullOrWhiteSpace(userParams.Department))
             {
                 users = users.Where(u =>
-                    u.Department.Contains(userParams.Department, StringComparison.CurrentCultureIgnoreCase));
+                    u.Department.Equals(userParams.Department, StringComparison.CurrentCultureIgnoreCase));
             }
             
             users = userParams.OrderBy switch
