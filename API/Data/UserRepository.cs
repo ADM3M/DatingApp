@@ -54,7 +54,7 @@ namespace API.Data
             
             users = userParams.OrderBy switch
             {
-                "created" => users.OrderBy(u => u.Created),
+                "created" => users.OrderByDescending(u => u.Created),
                 _ => users.OrderByDescending(u => u.LastActive),
             };
 

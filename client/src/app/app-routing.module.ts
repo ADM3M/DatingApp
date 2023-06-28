@@ -23,7 +23,6 @@ const routes: Routes = [
     runGuardsAndResolvers: "always",
     canActivate: [AuthGuard],
     children: [
-      { path: "about", component: AboutComponent },
       { path: "members", component: MemberListComponent, canActivate: [AuthGuard] },
       { path: "members/:name", component: MemberDetailComponent, resolve: {member: MemberDetailedResolver} },
       { path: "member/edit", component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard] },
@@ -32,6 +31,7 @@ const routes: Routes = [
       { path: "admin", component: AdminPanelComponent, canActivate: [AdminGuard]},
     ]
   },
+  { path: "about", component: AboutComponent },
   { path: "not-found", component: NotFoundComponent},
   { path: "server-error", component: ServerErrorComponent},
   { path: "errors", component: TestErrosComponent},

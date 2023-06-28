@@ -17,7 +17,7 @@ export class AdminGuard implements CanActivate {
         if (user.roles.includes('Admin') || user.roles.includes("Moderator")) {
           return true;
         }
-        this.toastr.error("You cannot enter this area");
+        this.toastr.error("У вас недостаточно прав для входа на эту страницу");
       })
     )
   }
